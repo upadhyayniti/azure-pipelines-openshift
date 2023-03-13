@@ -51,7 +51,7 @@ stages:
       displayName: Deploy to Kubernetes cluster
       inputs:
         action: deploy
-        kubernetesServiceConnection: 'openshift'
+        kubernetesServiceConnection: 'openshift-test-1678724092579'
         namespace: '$(project-name-dev)'
         manifests: |
           $(Build.SourcesDirectory)/manifests/*.yaml
