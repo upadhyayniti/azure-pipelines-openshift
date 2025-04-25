@@ -9,14 +9,14 @@ spec:
       name: azure-build-agent:latest
   source:
     dockerfile: |
-      FROM registry.access.redhat.com/ubi8/dotnet-60-runtime:latest
+      FROM registry.access.redhat.com/ubi8/dotnet-80-runtime:latest
       ENV _BUILDAH_STARTED_IN_USERNS="" \
           BUILDAH_ISOLATION=chroot \
           STORAGE_DRIVER=vfs
 
       USER root
       COPY start.sh .
-      RUN dnf install git jq podman-docker -y && \
+      RUN microdnf install git jq podman-docker -y && \
           curl $AZP_AGENT_PACKAGE_LATEST_URL --output vsts-agent-linux-x64.tar.gz && \
           tar zxvf vsts-agent-linux-x64.tar.gz && \
           rm vsts-agent-linux-x64.tar.gz && \
@@ -35,7 +35,7 @@ spec:
     dockerStrategy:
       from:
         kind: ImageStreamTag
-        name: dotnet-runtime:6.0
+        name: dotnet-runtime:8.0
         namespace: openshift
       env:
         - name: AZP_AGENT_PACKAGE_LATEST_URL
